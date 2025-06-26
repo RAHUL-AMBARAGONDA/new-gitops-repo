@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zurich-weather-app
+  name: calculator-app
   labels:
-    app: zurich-weather-app
+    app: calculator-app
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: zurich-weather-app
+      app: calculator-app
   template:
     metadata:
       labels:
-        app: zurich-weather-app
+        app: calculator-app
     spec:
       containers:
-      - name: rahulambaragonda
+      - name: calculator-container
         image: rahulambaragonda/gitops-k8s-deployments:main
         ports:
         - containerPort: 8080
-        # resources:
-        #   requests:
-        #     memory: "64Mi"
-        #     cpu: "250m"
-        #   limits:
-        #     memory: "128Mi"
-        #     cpu: "500m"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
