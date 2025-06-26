@@ -23,7 +23,9 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./src
+          file: ./src/Dockerfile
           push: true
           tags: rahulambaragonda/calculator-app:latest
+
 
 
