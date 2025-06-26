@@ -1,6 +1,21 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: simple-weather-app-service
+  namespace: gitops-kubernetes
+  labels:
+    app: simple-weather-app
+spec:
+  selector:
+    app: simple-weather-app
+  ports:
+    - protocol: TCP
+      port: 80          # Service port exposed inside the cluster
+      targetPort: 8080  # Container port your app listens on
+  type: ClusterIP
+apiVersion: v1
+kind: Service
+metadata:
   name: zurich-weather-app-service
 spec:
   type: LoadBalancer

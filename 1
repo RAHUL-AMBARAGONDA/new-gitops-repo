@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: weather-app
+  namespace: argocd
+spec:
+  destination:
+    namespace: gitops-kubernetes
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://github.com/RAHUL-AMBARAGONDA/new-gitops-repo.git
+    targetRevision: main
+    path: deployment
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
