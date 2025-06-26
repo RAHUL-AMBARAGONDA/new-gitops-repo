@@ -22,21 +22,17 @@ spec:
             - containerPort: 8080
           readinessProbe:
             httpGet:
-<<<<<<< HEAD
               path: /
-=======
+
               path: /health
->>>>>>> af0c072041c375f3360c9d96c275cbb70bdb65d9
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
-<<<<<<< HEAD
               path: /
-=======
+
               path: /health
->>>>>>> af0c072041c375f3360c9d96c275cbb70bdb65d9
               port: 8080
             initialDelaySeconds: 15
             periodSeconds: 20
