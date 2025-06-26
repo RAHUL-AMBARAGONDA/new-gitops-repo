@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: calculator-app
-  namespace: default
   labels:
     app: calculator-app
 spec:
@@ -31,4 +30,3 @@ spec:
               path: /
               port: 8080
             initialDelaySeconds: 15
-            periodSeconds: 20
