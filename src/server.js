@@ -1,9 +1,15 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 8080;
 
-app.use(express.static('.')); // Serve static files from the current directory
+// Serve static files like index.html
+app.use(express.static(__dirname));
+
+// Health check endpoint for Kubernetes probes
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+  console.log(`App running on port ${port}`);
 });

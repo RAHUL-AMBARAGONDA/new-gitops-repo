@@ -16,4 +16,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
-
+        (remote changes)
+>>>>>>> origin/main
