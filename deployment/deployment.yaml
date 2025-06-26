@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: calculator-container
-        image: rahulambaragonda/gitops-k8s-deployments:main
+        image: rahulambaragonda/gitops-k8s-deployments:latest
         ports:
         - containerPort: 8080
         resources:
