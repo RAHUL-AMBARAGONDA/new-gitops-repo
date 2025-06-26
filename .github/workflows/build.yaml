@@ -1,4 +1,4 @@
-name: Build and Push Payment App Image
+name: Build and Push Calculator Image
 
 on:
   push:
@@ -8,15 +8,12 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Payment-Team
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
+      - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -25,7 +22,7 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v3
         with:
-          context: ./src            # relative to Payment-Team because of working-directory
-          file: ./src/Dockerfile        # relative to Payment-Team
+          context: .
+          file: ./Dockerfile
           push: true
           tags: rahulambaragonda/calculator-app:latest
