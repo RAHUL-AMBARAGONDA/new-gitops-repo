@@ -2,10 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: calculator-app
-<<<<<<< HEAD
   namespace: default
-=======
->>>>>>> af0c072041c375f3360c9d96c275cbb70bdb65d9
   labels:
     app: calculator-app
 spec:
