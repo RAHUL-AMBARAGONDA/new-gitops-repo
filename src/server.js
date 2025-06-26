@@ -1,11 +1,9 @@
-const express = require("express");
-const path = require("path");
-
+const express = require('express');
 const app = express();
 const port = 8080;
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(__dirname)); // serves index.html
 
 app.listen(port, () => {
-  console.log(`Calculator app running at http://localhost:${port}`);
+  console.log(`App running on port ${port}`);
 });
