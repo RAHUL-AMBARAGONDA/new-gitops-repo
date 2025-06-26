@@ -2,10 +2,10 @@ FROM node:18
 
 WORKDIR /usr/src/app
 
-COPY src/package.json ./           # Update path
+COPY package.json .
 RUN npm install
 
-COPY src/. .                       # Copy all app files
-
+COPY . .    # this will copy rest of src/ files
 EXPOSE 8080
+
 CMD ["npm", "start"]
