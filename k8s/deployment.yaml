@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payment-app
+  name: calculator-app
   labels:
-    app: payment-app
+    app: calculator-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: payment-app
+      app: calculator-app
   template:
     metadata:
       labels:
-        app: payment-app
+        app: calculator-app
     spec:
       containers:
-        - name: payment-container
-          image: rahulambaragonda/payment-app:latest
+        - name: calculator-container
+          image: rahulambaragonda/calculator-app:latest
           ports:
             - containerPort: 8080
