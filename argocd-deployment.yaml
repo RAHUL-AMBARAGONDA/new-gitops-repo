@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/RAHUL-AMBARAGONDA/new-gitops-repo.git
     targetRevision: main
-    path: deployment         # <-- point to your folder with raw YAML manifests
+    path: deployment          # <--- update this to 'deployment'
   destination:
     server: https://kubernetes.default.svc
     namespace: default
