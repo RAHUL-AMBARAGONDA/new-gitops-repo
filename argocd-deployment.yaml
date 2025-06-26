@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/RAHUL-AMBARAGONDA/new-gitops-repo.git
     targetRevision: main
-    path: charts/calculator-app
+    path: deployment         # <-- point to your folder with raw YAML manifests
   destination:
     server: https://kubernetes.default.svc
     namespace: default
