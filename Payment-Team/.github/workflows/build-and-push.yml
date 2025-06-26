@@ -25,11 +25,7 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v3
         with:
-          - name: Build and push Docker image
-  uses: docker/build-push-action@v3
-  with:
-      context: ./Payment-Team/src          # path to src folder relative to repo root
-      file: ./Payment-Team/Dockerfile      # path to Dockerfile relative to repo root
-      push: true
-      tags: rahulambaragonda/calculator-app:latest
-
+          context: ./src            # relative to Payment-Team because of working-directory
+          file: ./Dockerfile        # relative to Payment-Team
+          push: true
+          tags: rahulambaragonda/calculator-app:latest
