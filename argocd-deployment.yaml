@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/RAHUL-AMBARAGONDA/your-repo.git
+    repoURL: https://github.com/RAHUL-AMBARAGONDA/new-gitops-repo.git
     targetRevision: main
     path: charts/calculator-app
   destination:
