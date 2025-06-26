@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Temperature Chart</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.0.0"></script>
+  <title>Calculator</title>
 </head>
 <body>
-    <canvas id="temperatureChart" width="600" height="400"></canvas>
-    <script>
-        Papa.parse("data.csv", {
-            download: true,
-            header: true,
-            complete: function(results) {
-                var labels = results.data.map(function(e) {
-                    return e.Date;
-                });
-                var data = results.data.map(function(e) {
-                    return e.Temperature;
-                });
-                var ctx = document.getElementById('temperatureChart').getContext('2d');
-                var temperatureChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Daily Temperature in Zurich',
-                            data: data,
-                            borderColor: 'rgb(75, 192, 192)',
-                            tension: 0.1
-                        }]
-                    }
-                });
-            }
-        });
-    </script>
+  <h1>Basic Calculator</h1>
+  <input id="num1" type="number" placeholder="Number 1" />
+  <input id="num2" type="number" placeholder="Number 2" />
+  <button onclick="calc('+')">+</button>
+  <button onclick="calc('-')">-</button>
+  <button onclick="calc('*')">*</button>
+  <button onclick="calc('/')">/</button>
+  <p id="result"></p>
+
+  <script>
+    function calc(op) {
+      const a = parseFloat(document.getElementById('num1').value);
+      const b = parseFloat(document.getElementById('num2').value);
+      let res;
+      switch(op) {
+        case '+': res = a + b; break;
+        case '-': res = a - b; break;
+        case '*': res = a * b; break;
+        case '/': res = b !== 0 ? a / b : 'Error'; break;
+      }
+      document.getElementById('result').innerText = 'Result: ' + res;
+    }
+  </script>
 </body>
 </html>
+
