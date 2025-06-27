@@ -1,10 +1,9 @@
-# calculator-app/charts/calculator/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: calculator-app
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
       app: calculator
@@ -15,6 +14,6 @@ spec:
     spec:
       containers:
         - name: calculator
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          image: rahulambaragonda/calculator-app:latest
           ports:
             - containerPort: 3000
