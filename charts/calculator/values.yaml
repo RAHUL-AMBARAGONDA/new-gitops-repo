@@ -4,6 +4,4 @@ image:
   repository: rahulambaragonda/calculator-app
   tag: latest
 
-containerPort: 8080
-
-resources: {}
+containerPort: 3000
