@@ -4,6 +4,6 @@ image:
   repository: rahulambaragonda/calculator-app
   tag: latest
 
-service:
-  type: ClusterIP
-  port: 3000
+containerPort: 8080
+
+resources: {}
