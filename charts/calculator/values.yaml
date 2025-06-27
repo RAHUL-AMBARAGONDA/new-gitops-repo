@@ -1,8 +1,9 @@
+replicaCount: 1
+
 image:
   repository: rahulambaragonda/calculator-app
-  tag: dev-latest
-replicaCount: 1
-resources:
-  limits:
-    cpu: 200m
-    memory: 256Mi
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 3000
