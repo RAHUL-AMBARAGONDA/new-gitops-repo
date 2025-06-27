@@ -2,23 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: calculator-app
-  labels:
-    app: calculator-app    # keep consistent
+  namespace: calculator
+  annotations:
+    argocd.argoproj.io/tracking-id: calculator-app:apps/Deployment:calculator/calculator-app
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: calculator-app  # must match labels below exactly
+      app: calculator
   template:
     metadata:
       labels:
-        app: calculator-app
+        app: calculator
     spec:
       containers:
-        - name: calculator-container
+        - name: calculator
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          imagePullPolicy: Always
           ports:
-            - containerPort: {{ .Values.containerPort | default 8080 }}
-              protocol: TCP
-          resources: {{ toYaml .Values.resources | nindent 10 }}
+            - containerPort: {{ .Values.containerPort }}
