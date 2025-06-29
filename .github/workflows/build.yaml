@@ -43,9 +43,9 @@ jobs:
       - name: Update Helm values image tag
         run: |
           cd $GITOPS_REPO_DIR
-          yq eval ".image.tag = \"${{ env.IMAGE_TAG }}\"" -i $VALUES_FILE
+          yq eval ".image.tag = \"$IMAGE_TAG\"" -i $VALUES_FILE
           git add $VALUES_FILE
-          git diff --quiet || (git commit -m "chore: update calculator image tag to ${{ env.IMAGE_TAG }}" && git push origin $GITOPS_REPO_BRANCH)
+          git diff --quiet || (git commit -m "chore: update calculator image tag to $IMAGE_TAG" && git push origin $GITOPS_REPO_BRANCH)
 
       - name: Finish
         run: echo "Image updated and changes pushed to GitOps repo"
