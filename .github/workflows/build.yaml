@@ -8,51 +8,44 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      GITOPS_REPO: git@github.com:RAHUL-AMBARAGONDA/devops-team.git
-      GITOPS_REPO_DIR: /tmp/devops-team
+      GITOPS_REPO: RAHUL-AMBARAGONDA/devops-team
+      GITOPS_REPO_DIR: ./devops-team
       GITOPS_REPO_BRANCH: main
       VALUES_FILE: charts/calculator/values/dev.yaml
-
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
 
-    - name: Log in to Docker Hub
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-    - name: Build and Push Docker Image
-      id: build_push
-      run: |
-        IMAGE_TAG=calculator-$(date +%s)
-        docker build -t rahulambaragonda/calculator:$IMAGE_TAG .
-        docker push rahulambaragonda/calculator:$IMAGE_TAG
-        echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+      - name: Build and Push Docker Image
+        id: build_push
+        run: |
+          IMAGE_TAG=calculator-$(date +%s)
+          docker build -t rahulambaragonda/calculator:$IMAGE_TAG .
+          docker push rahulambaragonda/calculator:$IMAGE_TAG
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
 
-    - name: Setup SSH for GitOps repo
-      uses: webfactory/ssh-agent@v0.5.4
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Checkout GitOps repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.GITOPS_REPO }}
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ref: ${{ env.GITOPS_REPO_BRANCH }}
+          path: ${{ env.GITOPS_REPO_DIR }}
 
-    - name: Clone GitOps repo
-      run: |
-        rm -rf $GITOPS_REPO_DIR
-        git clone $GITOPS_REPO $GITOPS_REPO_DIR
-        cd $GITOPS_REPO_DIR
-        git checkout $GITOPS_REPO_BRANCH
+      - name: Install yq
+        run: |
+          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
+          sudo chmod +x /usr/bin/yq
 
-    - name: Install yq
-      run: |
-        sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
-        sudo chmod +x /usr/bin/yq
+      - name: Update Helm values image tag
+        run: |
+          cd $GITOPS_REPO_DIR
+          yq eval ".image.tag = \"${{ env.IMAGE_TAG }}\"" -i $VALUES_FILE
+          git add $VALUES_FILE
+          git diff --quiet || (git commit -m "chore: update calculator image tag to ${{ env.IMAGE_TAG }}" && git push origin $GITOPS_REPO_BRANCH)
 
-    - name: Update Helm values image tag
-      run: |
-        cd $GITOPS_REPO_DIR
-        yq eval ".image.tag = \"$IMAGE_TAG\"" -i $VALUES_FILE
-        git config user.name "CI Bot"
-        git config user.email "ci-bot@github.com"
-        git add $VALUES_FILE
-        git diff --quiet || (git commit -m "chore: update calculator image tag to $IMAGE_TAG" && git push origin $GITOPS_REPO_BRANCH)
-
-    - name: Notify Argo CD
-      run: echo "Argo CD will auto-sync the updated app."
+      - name: Finish
+        run: echo "Image updated and changes pushed to GitOps repo"
