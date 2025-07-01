@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: calculator
-          image: rahulambaragonda/calculator-app:latest
+          image: rahulambaragonda/calculator:calculator-1751213639
           ports:
             - containerPort: 3000
