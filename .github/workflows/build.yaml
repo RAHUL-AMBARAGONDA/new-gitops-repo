@@ -22,8 +22,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-         docker build -t rahulambaragonda/calculator:v1.5 .
-         docker push rahulambaragonda/calculator:v1.5
+         docker build -t rahulambaragonda/calculator:v1.4 .
+         docker push rahulambaragonda/calculator:v1.4
 
       - name: Checkout GitOps repo
         uses: actions/checkout@v3
